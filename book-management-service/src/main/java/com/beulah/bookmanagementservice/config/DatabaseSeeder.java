@@ -6,12 +6,14 @@ import com.beulah.bookmanagementservice.repository.BookRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@Profile("!test")
 public class DatabaseSeeder {
 
     @Bean
@@ -20,7 +22,7 @@ public class DatabaseSeeder {
             List<Book> books = Arrays.asList(
                     createBook(
                             "The Great Gatsby",
-                            "978-0743273565",
+                            "1212121211",
                             LocalDate.of(1925, 4, 10),
                             2999,
                             BookType.HARD_COVER,
@@ -28,7 +30,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "1984",
-                            "978-0451524935",
+                            "1212121212",
                             LocalDate.of(1949, 6, 8),
                             1999,
                             BookType.SOFT_COVER,
@@ -36,7 +38,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "The Hobbit",
-                            "978-0547928227",
+                            "1212121213",
                             LocalDate.of(1937, 9, 21),
                             2499,
                             BookType.E_BOOK,
@@ -44,7 +46,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "Pride and Prejudice",
-                            "978-0141439518",
+                            "1212121214",
                             LocalDate.of(1813, 1, 28),
                             1599,
                             BookType.AUDIO_BOOK,
@@ -52,7 +54,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "To Kill a Mockingbird",
-                            "978-0446310789",
+                            "1212121215",
                             LocalDate.of(1960, 7, 11),
                             1899,
                             BookType.SOFT_COVER,
@@ -60,7 +62,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "The Catcher in the Rye",
-                            "978-0316769488",
+                            "1212121216",
                             LocalDate.of(1951, 7, 16),
                             2199,
                             BookType.HARD_COVER,
@@ -68,7 +70,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "Lord of the Rings",
-                            "978-0618645619",
+                            "1212121217",
                             LocalDate.of(1954, 7, 29),
                             3499,
                             BookType.E_BOOK,
@@ -76,7 +78,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "Brave New World",
-                            "978-0060850524",
+                            "12121212118",
                             LocalDate.of(1932, 1, 1),
                             1799,
                             BookType.AUDIO_BOOK,
@@ -84,7 +86,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "The Da Vinci Code",
-                            "978-0307474278",
+                            "12121212119",
                             LocalDate.of(2003, 3, 18),
                             2299,
                             BookType.SOFT_COVER,
@@ -92,7 +94,7 @@ public class DatabaseSeeder {
                     ),
                     createBook(
                             "The Hunger Games",
-                            "978-0439023481",
+                            "12121212110",
                             LocalDate.of(2008, 9, 14),
                             2399,
                             BookType.HARD_COVER,

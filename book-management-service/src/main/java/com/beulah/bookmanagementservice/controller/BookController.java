@@ -8,6 +8,9 @@ import com.beulah.bookmanagementservice.exceptions.InvalidBookTypeException;
 import com.beulah.bookmanagementservice.exceptions.InvalidDateFormatException;
 import com.beulah.bookmanagementservice.models.Book;
 import com.beulah.bookmanagementservice.service.BookService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,13 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @ApiOperation(value = "Create a new book", notes = "Adds a new book to the catalog")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Book successfully created"),
+            @ApiResponse(code = 400, message = "Invalid input or book type"),
+            @ApiResponse(code = 409, message = "Book with same ISBN already exists"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
     @PostMapping
     public ResponseEntity<GenericResponse<Book>> createBook(
             @Valid @RequestBody NewBookRequest newBookRequest,
@@ -61,6 +71,14 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value = "Update an existing book", notes = "Updates a book's information by ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Book successfully updated"),
+            @ApiResponse(code = 400, message = "Invalid input or book type"),
+            @ApiResponse(code = 404, message = "Book not found"),
+            @ApiResponse(code = 409, message = "ISBN conflict with existing book"),
+            @ApiResponse(code = 500, message = "Internal server error")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<GenericResponse<Book>> updateBook(
             @PathVariable int id,
@@ -97,6 +115,10 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value = "List all books", notes = "Returns a paginated list of books with optional search")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved books")
+    })
     @GetMapping
     public ResponseEntity<GenericResponse<List<Book>>> listBooks(
             @RequestParam(required = false) String query,
@@ -113,6 +135,12 @@ public class BookController {
         );
     }
 
+    @ApiOperation(value = "Delete a book", notes = "Removes a book from the catalog by ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Book successfully deleted"),
+            @ApiResponse(code = 404, message = "Book not found"),
+            @ApiResponse(code = 500, message = "Error during deletion")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<GenericResponse<Void>> deleteBook(@PathVariable int id) {
         try {
@@ -131,6 +159,11 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value = "Get a book by ID", notes = "Returns a single book by its ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved book"),
+            @ApiResponse(code = 404, message = "Book not found")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<GenericResponse<Book>> getBookById(@PathVariable int id) {
         return bookService.findById(id)

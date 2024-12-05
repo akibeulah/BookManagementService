@@ -1,93 +1,131 @@
 # Book Catalog Management System
 
-Technical Assessment Submission
+A robust microservices-based book catalog application built with modern Java technologies and best practices.
 
 ## Project Overview
-A microservices-based book catalog application demonstrating proficiency in:
-- Java 8
-- Spring Boot 2.x
-- Microservice architecture
-- RESTful API design
+
+This system demonstrates implementation of a scalable book catalog management solution using:
+- Java 8 with Spring Boot 2.7.18
+- Microservices architecture
+- RESTful API design principles
 - Docker containerization
+- Comprehensive testing
 
-### System Architecture
-Two-tier Spring Boot application:
-1. **Management Service**: Backend API
-2. **Web Service**: Client Interface
+### Architecture
 
-## Backend Web Service
-**Technologies**
+The application consists of two microservices:
+1. **Management Service**: Core backend API handling book data and business logic
+2. **Web Service**: Client interface providing user interaction
 
-| Section          | Technologies       |
-|------------------|--------------------|
-| Language         | Java 8             |
-| Framework        | Spring Boot 2.7.18 |
-| Template Engine  | JSP                |
-| Library Bundler  | Maven              |
-| Containerization | Docker             |
+## Service Specifications
 
+### Management Service (Backend)
 
+**Core Technologies**
 
-## Backend Management Service
-**Technologies**
+| Technology       | Implementation                |
+|------------------|-------------------------------|
+| Language         | Java 8                        |
+| Framework        | Spring Boot 2.7.18            |
+| Data Access      | Spring Data JPA               |
+| Database         | H2 In-Memory Database         |
+| Build Tool       | Maven                         |
+| Containerization | Docker                        |
+| Testing          | JUnit 5, Mockito, Spring Test |
 
-| Section          | Technologies          |
-|------------------|-----------------------|
-| Language         | Java 8                |
-| Framework        | Spring Boot 2.7.18    |
-| JDBC             | Spring Data JPA       |
-| Database         | H2 In-Memory Database |
-| Library Bundler  | Maven                 |
-| Containerization | Docker                |
+**Key Features**
+- Full CRUD operations for book management
+- RESTful API with standardized responses
+- Robust error handling and validation
+- Comprehensive test coverage
+- In-memory data persistence
 
-### Key Features
-- CRUD operations for book catalog
-- RESTful API endpoints
-- In-memory database persistence
-- Comprehensive error handling
+**API Endpoints**
 
-### API Endpoints
-- `GET /books`: Retrieve all books
-- `POST /books`: Create new book
-- `PUT /books/{id}`: Update existing book
-- `DELETE /books/{id}`: Remove book
+| Method | Endpoint             | Description       | Query Parameters           |
+|--------|----------------------|-------------------|----------------------------|
+| GET    | `/api/v1/books`      | List all books    | `page`, `perPage`, `query` |
+| POST   | `/api/v1/books`      | Create a new book | -                          |
+| PUT    | `/api/v1/books/{id}` | Update a book     | -                          |
+| DELETE | `/api/v1/books/{id}` | Delete a book     | -                          |
 
-[Here is a Postman link for the endpoints](https://grey-crater-653575.postman.co/workspace/PayU-Assessment-~420c5687-1418-4b5c-a6e8-839cb91d3c25/collection/21506559-d419515d-c31c-4323-863f-dfad02988d93?action=share&creator=21506559)
+[View Complete API Documentation in Postman](https://grey-crater-653575.postman.co/workspace/PayU-Assessment-~420c5687-1418-4b5c-a6e8-839cb91d3c25/collection/21506559-d419515d-c31c-4323-863f-dfad02988d93?action=share&creator=21506559)
 
-### Entity Relationships
-- **Books**: Catalog information
+[Swagger Link for API enpoints](http://localhost:8000/swagger-ui/index.html)
 
-___
-## Development Approach
+\* You have to be running the service to access the swagger page
+
+### Web Service (Frontend)
+
+**Core Technologies**
+
+| Technology       | Implementation         |
+|------------------|------------------------|
+| Language         | Java 8                 |
+| Framework        | Spring Boot 2.7.18     |
+| View Engine      | JSP (with TailwindCSS) |
+| Build Tool       | Maven                  |
+| Containerization | Docker                 |
+
+## Development & Testing
 
 ### Testing Strategy
-- Unit Testing: Component-level validation
-- Integration Testing: End-to-end workflow
-- Test Driven Development
-- Ensuring robust service interactions
 
-## Local Setup & Execution
+The application implements a comprehensive testing approach:
+- Unit Tests: Individual component validation
+- Integration Tests: End-to-end workflow verification
+- Test Driven Development (TDD) methodology
 
-### Prerequisites
-- Java 8 JDK
-- Maven 3.x
-- Docker (optional)
-
-### Docker Deployment
+To run tests:
 ```bash
-docker-compose up --build
+./mvnw test
 ```
 
-## Project Highlights
-- Microservices architecture
-- RESTful API design
-- In-memory database integration
-- Dockerized deployment
-- Comprehensive test coverage
+## Setup & Deployment
 
-## Potential Improvements
-- Advanced search functionality
-- User authentication
-- Performance optimization
-- Enhanced error reporting
-- Implementation of shared library
+### Prerequisites
+- Docker Desktop installed and running
+- Port 8000 and 8010 available on host machine
+
+### Backend Service Deployment
+```bash
+cd book-management-service
+docker build -t book-management-service .
+docker run -p 8000:8000 book-management-service
+```
+
+### Frontend Service Deployment
+```bash
+cd book-management-web
+docker build -t book-management-web .
+docker run -p 8010:8010 -e API_BASE_URL=http://host.docker.internal:8000/api/v1 book-web
+```
+
+## Domain Model
+
+### Book Entity
+- Title (required)
+- ISBN (required, unique)
+- Author
+- Publication Date
+- Price
+- Book Type (HARD_COVER, SOFT_COVER, E_BOOK, AUDIO_BOOK)
+
+## Future Enhancements
+
+1. **Feature Additions**
+    - Advanced search and filtering
+    - User authentication and authorization
+    - Book categories and tags
+    - Rating and review system
+    - Inventory Management
+    - Patron Management
+    - Lending Operations
+
+2. **Technical Improvements**
+    - Metrics and monitoring
+    - Implementation of shared library for common code
+
+## Contributing
+
+Please refer to our contributing guidelines for information on how to propose changes or improvements to this project.

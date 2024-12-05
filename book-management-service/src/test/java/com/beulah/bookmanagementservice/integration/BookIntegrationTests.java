@@ -50,7 +50,7 @@ class BookIntegrationTests {
         bookRepository.deleteAll();
         testBook = Book.builder()
                 .title("Effective Java")
-                .isbn("9780134685991")
+                .isbn("232323232323223")
                 .bookType(BookType.HARD_COVER)
                 .price(5274)
                 .publishDate(LocalDate.now())
@@ -59,7 +59,7 @@ class BookIntegrationTests {
 
         validBookRequest = new NewBookRequest();
         validBookRequest.setTitle("Effective Java");
-        validBookRequest.setIsbn("9780134685991");
+        validBookRequest.setIsbn("232323232323224");
         validBookRequest.setBookType("HARD_COVER");
         validBookRequest.setPrice(5274);
         validBookRequest.setPublishDate(LocalDate.now().toString());
@@ -179,16 +179,18 @@ class BookIntegrationTests {
 
     @Test
     void shouldFailToCreateBookWithDuplicateISBN() throws Exception {
+        String duplicateIsbn = "232323232323223";
         Book existingBook = bookRepository.save(
                 Book.builder()
                         .title("Existing Book")
-                        .isbn("9780134685991")
+                        .isbn(duplicateIsbn)
                         .bookType(BookType.SOFT_COVER)
                         .price(4000)
                         .publishDate(LocalDate.now())
                         .author("Some Author")
                         .build()
         );
+        validBookRequest.setIsbn(duplicateIsbn);
 
         mockMvc.perform(post("/api/v1/books")
                         .contentType(MediaType.APPLICATION_JSON)

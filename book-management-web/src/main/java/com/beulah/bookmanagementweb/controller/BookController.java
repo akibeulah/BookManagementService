@@ -43,7 +43,7 @@ public class BookController {
 
             return "book/index";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("toastMessage", "Looks like something went wrong" + e.getMessage());
+            redirectAttributes.addFlashAttribute("toastMessage", "Looks like something went wrong " + e.getMessage());
             redirectAttributes.addFlashAttribute("toastType", "error");
             return "redirect:/";
         }
